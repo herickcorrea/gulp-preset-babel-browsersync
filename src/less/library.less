@@ -1,0 +1,379 @@
+
+/* --------------------------------------------------------------
+RESET
+----------------------------------------------------------------- */
+
+* { margin:0; padding:0; outline:none; border:0; list-style-type:none; text-decoration:none; list-style-image:none; box-sizing:border-box;}
+
+html{font-size:100%; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;}
+header, section, footer, article, figcaption, hgroup, figure, details, aside, img, nav, time, bloquote, svg, button {display:block;}
+audio, canvas, video {display:inline-block;*display:inline;*zoom:1;}
+audio:not([controls]){display:none;}
+[hidden]{display:none;}
+
+table {border-collapse:collapse; width:100%;}
+
+object[type="application/gas-events-uni"] {width:0; height:0; position:absolute; overflow:hidden; display:block; text-indent:-999999px}
+
+input[type="search"], input[type="submit"] {-webkit-appearance:textfield; -moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box; border-radius:0; -webkit-border-radius:0;}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.ui-helper-hidden-accessible {.hide}
+
+/* --------------------------------------------------------------
+DEFAULT STYLES
+----------------------------------------------------------------- */
+
+html,body {height:100%;}
+
+/* FORMATING CLASSES
+---------------------------- */
+
+.clear {clear:both;}
+.hide {width:0; height:0; position:absolute; overflow:hidden; display:block; text-indent:-999999px}
+hr {display:none;}
+
+.left {float:left;}
+.right {float:right;}
+.center {margin:0 auto;}
+.middle {display:block; position:relative; top:50%; transform:translateY(-50%);}
+.middleOff {top:inherit; transform:none;}
+
+.nopadding {padding-left:0; padding-right:0}
+
+.textRight {text-align:right;}
+.textLeft {text-align:left;}
+.textCenter {text-align:center;}
+
+.cols(@col : 2, @gap : 40px)
+{
+    -moz-column-count: @col;
+    -moz-column-gap: @gap;
+    -webkit-column-count: @col;
+    -webkit-column-gap: @gap;
+    column-count: @col;
+    column-gap: @gap;
+}
+
+.colsRules(@size : 1px, @style : solid, @cor : rgba(0,0,0,0.1)){
+    -webkit-column-rule: @size @style @cor;
+    -moz-column-rule: @size @style @cor;
+    column-rule: @size @style @cor;
+}
+
+.rotate(@grau : 20.20deg){
+    -moz-transform: rotate(@grau);
+    -webkit-transform: rotate(@grau);
+    -o-transform: rotate(@grau);
+    -ms-transform: rotate(@grau);
+    transform: rotate(@grau);
+}
+
+/* BACKGROUNDS */
+
+.bgCover(@att : inherit)
+{
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-attachment: @att;
+}
+
+.bgContain(@att : inherit)
+{
+    -webkit-background-size:contain;
+    -moz-background-size:contain;
+    -o-background-size:contain;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-attachment: @att;
+}
+
+/* COLORS */
+
+@azul         : #006a9e;
+@azulEscuro   : #004681;
+@azulClaro    : #00a6d5;
+@amarelo      : #fabb00;
+@laranja      : #e34b20;
+@vermelho     : #ff0000;
+@subtitulo    : #5d5d5d;
+@textos       : #373b40;
+
+/*
+FONTS
+400,500,600,700
+*/
+
+.font(@size : 16px, @weight : 500, @lineHeight : normal, @cor : @textos, @style : normal, @upper : none)
+{
+    font-family:'Barlow Semi Condensed', sans-serif;
+    font-size:@size;
+    font-weight:@weight;
+    line-height:@lineHeight;
+    color:@cor;
+    font-style:@style;
+    text-transform:@upper;
+}
+
+.fontello(@content : "\f004", @size : 20px, @cor : #000)
+{
+    font-family:'shoppings-ancar';
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    content:@content;
+    color:@cor;
+    font-size:@size;
+}
+
+/* EFFECTS */
+
+.transition(@time : 400ms, @animation : ease){
+    -webkit-transition:all @time @animation; /* Safari */
+    transition:all @time @animation;
+}
+
+.placeholder(@cor : rgba(0,0,0,0.5), @style : normal, @fweitgh : 400, @fontSize : 15px)
+{
+    ::-webkit-input-placeholder {color:@cor; opacity:1; font-style:@style; font-weight:@fweitgh; font-size:@fontSize}
+    ::-moz-placeholder {color:@cor; opacity:1; font-style:@style; font-weight:@fweitgh; font-size:@fontSize}
+    :-ms-input-placeholder {color:@cor; opacity:1; font-style:@style; font-weight:@fweitgh; font-size:@fontSize}
+    :-moz-placeholder {color:@cor; opacity:1; font-style:@style; font-weight:@fweitgh; font-size:@fontSize}
+}
+
+/* ELEMENTOS */
+
+.bullets(@size : 5px, @cor : #000, @top : 5px)
+{
+    content:"";
+    display:block;
+    width:@size;
+    height:@size;
+    background:@cor;
+    border-radius:10px;
+    position:absolute;
+    left:0;
+    margin-top:@top;
+}
+
+.pontinhos {white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+.imgLazyLoad {position:relative; background:#f2f2f2 url(../images/preloader-images.gif) no-repeat center;}
+.imgLazyLoad .img {content:""; display:block; position:absolute; width:100%; height:100%; z-index:0; background-size:cover; background-repeat:no-repeat; background-position:center;}
+
+.owl-nav
+{
+    button {position:absolute; z-index:1; top:50%; transform:translateY(-50%); width:70px; height:70px; border-radius:100px; background:rgba(0,0,0,0.7); cursor:pointer; .transition();}
+    button:hover {background:rgba(0,0,0,1);}
+    button span {display:none;}
+
+    button.owl-prev {left:15px;}
+    button.owl-prev:before {.fontello("\f007",26px,#fff); position:relative; left:-2px; .transition();}
+
+    button.owl-next {right:15px;}
+    button.owl-next:before {.fontello("\f006",26px,#fff); position:relative; left:2px; .transition();}
+
+    @media screen and (max-width : 992px)
+    {
+        button {width:50px; height:50px;}
+        button.owl-prev:before {font-size:20px;}
+        button.owl-next:before {font-size:20px;}
+    }
+    @media screen and (max-width : 680px)
+    {
+        button.owl-prev {left:10px;}
+        button.owl-next {right:10px;}
+    }
+}
+
+.owl-dots
+{
+    position:absolute; bottom:40px; z-index:1; width:80px; left:50%; transform:translateX(-50%); text-align:center;
+
+    button {display:inline-block; vertical-align:middle; width:6px; height:6px; background:#fff; margin:0 2px; border-radius:10px; .transition();}
+    button.active {background:@laranja; width:10px; height:10px;}
+
+    @media screen and (max-width : 992px)
+    {
+        & {bottom:20px;}
+    }
+}
+
+.btn
+{
+    display:inline-block; padding:0 30px; height:50px; .transition(); position:relative; .font(16px,600,50px,#fff,normal,uppercase); background:@azul; border-radius:7px; cursor:pointer;
+
+    &.wide {width:100%; max-width:280px; padding:0 20px; text-align:center; height:40px; line-height:38px;}
+    &.ultraWide {width:100%; max-width:280px; padding:0 20px; text-align:center;}
+    &.big {height:68px; line-height:68px;}
+    &.full {width:100%; text-align:center;}
+    &.thin {min-width:212px; height:40px; line-height:38px; text-align:center;}
+    
+    &.amarelo {color:#000; background:@amarelo;}
+    &.laranja {color:#000; background:@laranja;}
+    &.azul {color:#fff; background:@azul;}
+    &.verde {color:#fff; background:#4d9d56;}
+    
+    &:hover {box-shadow:0 0 5px rgba(0,0,0,0.3);}
+
+    &.outline {background:transparent; border:2px solid #eaeaea; width:100%; max-width:280px; padding:0 10px; text-align:center; height:40px; line-height:34px; color:#404040; text-transform:none; font-size:18px; box-shadow:none; font-weight:500;}
+    &.outline:hover {color:@azulEscuro; border:2px solid @azulEscuro;}
+
+    &.outline.activeScroll {color:#fff; background:@azulEscuro; border:2px solid @azulEscuro;}
+
+
+    i {font-size:20px;}
+
+    @media screen and (max-width :580px)
+    {
+        &.outline {font-size:14px; padding:0; line-height:36px;}
+    }
+}
+
+.formularioStyle
+{
+    clear:both; position:relative;
+    
+    legend {.font(16px,500,50px,#000,italic,none); display:block; padding-bottom:15px;}
+
+    div.input {margin-bottom:30px; position:relative;}
+
+    label {display:block; .font(1.2em,500,normal,@textos,italic,none); padding-bottom:8px;}
+    label span {color:@subtitulo; font-weight:400;}
+
+    .defaultInputStyle {width:100%; padding:0 15px; height:50px; .font(18px,500,50px,#555555,normal,none); background:#f8f8f8; border:1px solid rgba(0,0,0,0.1); border-radius:7px}
+    .defaultInputStyle.error {border:2px solid #fbc5c5;}
+
+    textarea.defaultInputStyle {padding:10px 15px; height:200px; line-height:normal; .font(18px,500,20px,#555555,normal,none);}
+
+    .placeholder(#555555,normal,500,18px);
+
+    div.radio, div.checkbox
+    {
+        label {display:block; position:relative; .font(16px,400,16px,#404040,normal,none);}
+
+        input {position:absolute; width:20px; height:20px; top:0; left:0; z-index:1; opacity:0; cursor:pointer;}
+        
+        input + span.fakeRadio {position:relative; z-index:0; display:inline-block; vertical-align:middle; width:20px; height:20px; background:#f8f8f8; border:1px solid rgba(0,0,0,0.1); border-radius:20px; margin-right:5px; cursor:pointer;}
+        input + span.fakeRadio span {position:absolute; width:10px; height:10px; background:@azul; border-radius:10px; left:50%; top:50%; transform:translate(-50%,-50%); .transition(); opacity:0}
+
+        input + span.fakeCheck {position:relative; z-index:0; display:inline-block; vertical-align:middle; width:20px; height:20px; background:#f8f8f8; border:1px solid rgba(0,0,0,0.1); margin-right:5px; cursor:pointer;}
+        input + span.fakeCheck span {position:absolute; width:10px; height:10px; background:@azul; left:50%; top:50%; transform:translate(-50%,-50%); .transition(); opacity:0}
+
+        input:checked + span.fakeRadio span {opacity:1;}
+        input:checked + span.fakeCheck span {opacity:1;}
+    }
+
+    div.select
+    {
+        .defaultInputStyle; padding:0; position:relative; overflow:hidden; 
+
+        &:before {.fontello("\e82e",16px,#000); position:absolute; z-index:0; right:15px; top:50%; transform:translateY(-50%);}
+
+        select
+        {
+            position:relative; z-index:1; height:50px; width:~"calc(100% + 17px)"; ; padding:0 15px; background:transparent; font-weight:400; border:0; .font(18px,500,20px,#555555,normal,none);
+
+            @media all and (-ms-high-contrast:none)
+            {
+                & { width:~"calc(100% + 30px)"; } /* IE10 */
+                *::-ms-backdrop { width:~"calc(100% + 30px)"; } /* IE11 */
+            }
+
+            @supports (-ms-ime-align:auto) {
+                & { width:~"calc(100% + 30px)"; }
+            }
+        }
+    }
+
+    div.inputfile
+    {
+        .defaultInputStyle; height:70px; padding:0; position:relative; overflow:hidden;
+
+        input {position:absolute; width:100%; height:70px; line-height:70px; z-index:1; opacity:0; cursor:pointer; display:block;}
+
+        span.fakeButton.btn {float:right; position:relative; z-index:0; margin:2px 2px 0 0; padding:0; background:transparent; text-align:center; height:70px; width:70px; line-height:64px;}
+        span.fakeButton.btn i {color:@azul; font-size:26px;}
+
+        span.filename {width:~"calc( (100% - 70px) - 15px)"; float:left; position:relative; z-index:0; padding:0 0 0 15px; .pontinhos; text-align:left; height:70px; line-height:64px;}
+        span.filename:not(.notempty) {font-weight:400; color:@subtitulo; font-style:italic; font-size:0.9em;}
+
+        &.error {border:2px solid #fbc5c5;}
+    }
+
+    .captcha
+    {
+        text-align:right;
+
+        label {display:inline-block; height:60px; line-height:60px;}
+        label strong {color:@azulEscuro; font-weight:700}
+
+        input[type="text"] {width:60px; text-align:center; padding:0; display:inline-block; margin:0 0 0 15px}
+
+        .g-recaptcha {float:right;}
+
+        img {margin:4px auto; opacity:0; display:none;}
+    }
+
+    &#formTraceRoute .defaultInputStyle {padding:0 50px 0 15px;}
+
+    #map {height:400px; position:relative; .imgLazyLoad; margin-bottom:30px}
+
+    #trajeto-texto
+    {
+        .adp-step, .adp-substep {font-size:1.2em; font-weight:400; padding:10px 0;}
+    }
+
+    button.getLocation {position:absolute; right:1px; top:1px; height:48px; width:50px; text-align:center; background:transparent; cursor:pointer;}
+    button.getLocation i {color:#b7b7b7; font-size:24px; line-height:44px; position:relative; top:-2px}
+
+    /* PORTRAIT */
+    
+    @media screen and (max-width : 740px)
+    {
+        #map {height:300px}
+    }
+    @media screen and (max-width : 580px) and (orientation : portrait)
+    {
+        .captcha .validacao {text-align:center; padding-bottom:30px;}
+        .captcha .g-recaptcha {float:none; margin-bottom:30px;}
+        .captcha .g-recaptcha > div {margin:0 auto;}
+    }
+}
+
+.boxMessageStyles
+{
+    .alertsMessages
+    {
+        height:0; opacity:0;
+
+        .alertBox
+        {
+            position:relative; overflow:hidden; padding:10px 20px; .font(14px,500,normal,#000,normal,none); border-radius:5px; margin-bottom:30px;
+
+            h1 {.font(22px,500,normal,#000,normal,none); padding-bottom:10px}
+
+            a.closeAlert {position:absolute; right:15px; top:15px; font-size:16px; color:#404040;}
+
+            p {.font(14px,400,normal,#000,normal,none); padding:0}
+            
+            ul li {.font(15px,400,16px,#000,normal,none);}
+            
+            &.formError {background:#fff4f4; border:1px solid #fbc5c5;}
+            &.formSucesso {background:#eeffe4; border:1px solid #b7ff8f;}
+        }
+    }
+}
+
+#preloaderPage {position:fixed; width:100%; height:100%; left:0; top:0; z-index:10000; background:url(../images/preloader-fundo-branco.gif) no-repeat center, rgba(255,255,255,0.9); display:none; opacity:0;}
