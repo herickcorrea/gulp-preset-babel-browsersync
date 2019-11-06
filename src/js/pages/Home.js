@@ -1,5 +1,5 @@
 
-import TemplateFunctions from '/src/js/Template.js';
+import TemplateFunctions from '/js/modules/Template.js';
 
 class Home
 {

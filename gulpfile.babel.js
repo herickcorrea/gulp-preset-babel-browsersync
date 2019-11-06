@@ -44,6 +44,15 @@ function minscripts()
 		.pipe(dest('./js'));
 }
 
+function minscriptsModules()
+{
+	return src(['src/js/pages/*.js','src/js/modules/*.js'])
+		.pipe(sourcemaps.init())
+		.pipe(uglify())
+		.pipe(sourcemaps.write('./'))
+		.pipe(dest('./js/modules'));
+}
+
 function minscriptsPlugins()
 {
 	return src('src/js/plugins/*.js')
@@ -87,12 +96,7 @@ function mwatch()
 		browserSync.reload();
 	});
 
-	watch('src/js/pages/*.js', minscripts).on('change',function()
-	{
-		browserSync.reload();
-	});
-
-	watch('src/js/modules/*.js', minscripts).on('change',function()
+	watch(['src/js/pages/*.js','src/js/modules/*.js'], minscriptsModules).on('change',function()
 	{
 		browserSync.reload();
 	});
@@ -111,3 +115,15 @@ function mwatch()
 }
 
 exports.watch 	= mwatch;
+
+/* Compiladores parciais */
+
+exports.less 	= parallel(lesscss);
+exports.js 		= parallel(minscripts);
+exports.modules = parallel(minscriptsModules);
+exports.plugins	= parallel(minscriptsPlugins);
+exports.imagens	= parallel(optimizeImages, optimizeImagesWebp);
+
+/* Compiladores Total */
+
+exports.compile = parallel(lesscss, minscripts, minscriptsModules, minscriptsPlugins, optimizeImages, optimizeImagesWebp);

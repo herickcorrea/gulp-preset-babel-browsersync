@@ -1,8 +1,8 @@
 
 /* IMPORTAÇÕES */
 
-import TemplateFunctions from '/src/js/Template.js';
-import Home from '/src/js/pages/Home.js';
+import TemplateFunctions from '/js/modules/Template.js';
+import Home from '/js/modules/Home.js';
 
 /* INSTANCIA CLASSES */
 
