@@ -20,6 +20,21 @@ const imagemin 		= require('gulp-imagemin');
 const webp 			= require('gulp-webp');
 const sourcemaps 	= require('gulp-sourcemaps');
 
+/*
+
+LESS TO CSS MINIFICADO
+
+function lesscss()
+{
+	return src('src/less/template.less')
+		.pipe(sourcemaps.init())
+			.pipe(less('template.css'))
+			.pipe(minifyCSS())
+		.pipe(sourcemaps.write('./'))
+		.pipe(dest('./bundle/css'))
+}
+*/
+
 function lesscss()
 {
 	return src('src/less/style.less')
