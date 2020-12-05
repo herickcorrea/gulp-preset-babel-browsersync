@@ -35,19 +35,25 @@ function lesscss()
 }
 */
 
+function pluginscss()
+{
+	return src('./src/css/*.css')
+		.pipe(concat('plugins.css'))
+		.pipe(dest('./bundle/css'))
+}
 function lesscss()
 {
-	return src('src/less/style.less')
-		.pipe(less('style.css'))
+	return src('./src/less/template.less')
+		.pipe(sourcemaps.init())
+		.pipe(less('template.css'))
 		.pipe(minifyCSS())
-		.pipe(lessMap({
-	        sourceMap: {
-	            sourceMapRootpath: './css'
-	        }
-	    }))
-		.pipe(dest('./css'))
+		.pipe(rename({
+            suffix: '.min'
+        }))
+		.pipe(sourcemaps.write('./'))
+        .pipe(dest('./bundle/css'))
+		//.pipe(dest('./src/less'))
 }
-
 function minscripts()
 {
 	return src('src/js/app.main.js')
@@ -56,40 +62,49 @@ function minscripts()
 		.pipe(rename("app.main.min.js"))
 		.pipe(uglify())
 		.pipe(sourcemaps.write('./'))
-		.pipe(dest('./js'));
+		.pipe(dest('./bundle/js'));
+}
+
+function minscriptsPages()
+{
+	return src(['./src/js/pages/*.js'])
+		.pipe(sourcemaps.init())
+		.pipe(uglify())
+		.pipe(sourcemaps.write('./'))
+		.pipe(dest('./bundle/js/pages'));
 }
 
 function minscriptsModules()
 {
-	return src(['src/js/pages/*.js','src/js/modules/*.js'])
+	return src(['./src/js/modules/*.js'])
 		.pipe(sourcemaps.init())
 		.pipe(uglify())
 		.pipe(sourcemaps.write('./'))
-		.pipe(dest('./js/modules'));
+		.pipe(dest('./bundle/js/modules'));
 }
 
 function minscriptsPlugins()
 {
-	return src('src/js/plugins/*.js')
+	return src('./src/js/plugins/*.js')
 		.pipe(concat('plugins.js'))
 		.pipe(rename("vendors.min.js"))
 		.pipe(stripDebug())
 		.pipe(uglify())
-		.pipe(dest('./js'));
+		.pipe(dest('./bundle/js'));
 }
 
 function optimizeImages()
 {
 	return src('src/images/*.{jpg,jpeg,png}')
 		.pipe(imagemin())
-		.pipe(dest('./images/optimized'));
+		.pipe(dest('./bundle/images/optimized'));
 }
 
 function optimizeImagesWebp()
 {
 	return src('src/images/*.{jpg,jpeg,png}')
 		.pipe(webp())
-		.pipe(dest('./images/webp'));
+		.pipe(dest('./bundle/images/webp'));
 }
 
 function mwatch()
@@ -99,6 +114,11 @@ function mwatch()
 		browserSync.init({
 			proxy: '127.0.0.1:8000'
 		});
+	});
+
+	watch('./src/css/*.css', pluginscss).on('change',function()
+	{
+		browserSync.reload();
 	});
 
 	watch('src/less/*.less', lesscss).on('change',function()
@@ -111,7 +131,12 @@ function mwatch()
 		browserSync.reload();
 	});
 
-	watch(['src/js/pages/*.js','src/js/modules/*.js'], minscriptsModules).on('change',function()
+	watch(['./src/js/pages/*.js'], minscriptsPages).on('change',function()
+	{
+		browserSync.reload();
+	});
+
+	watch(['./src/js/modules/*.js'], minscriptsModules).on('change',function()
 	{
 		browserSync.reload();
 	});
@@ -133,12 +158,14 @@ exports.watch 	= mwatch;
 
 /* Compiladores parciais */
 
+exports.css 	= parallel(pluginscss);
 exports.less 	= parallel(lesscss);
 exports.js 		= parallel(minscripts);
+exports.pages 	= parallel(minscriptsPages);
 exports.modules = parallel(minscriptsModules);
 exports.plugins	= parallel(minscriptsPlugins);
 exports.imagens	= parallel(optimizeImages, optimizeImagesWebp);
 
 /* Compiladores Total */
 
-exports.compile = parallel(lesscss, minscripts, minscriptsModules, minscriptsPlugins, optimizeImages, optimizeImagesWebp);
+exports.compile = parallel(pluginscss, lesscss, minscripts, minscriptsModules, minscriptsPlugins, optimizeImages, optimizeImagesWebp);
